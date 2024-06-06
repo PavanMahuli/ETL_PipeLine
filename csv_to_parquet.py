@@ -13,6 +13,6 @@ spark = SparkSession.builder.getOrCreate()
 def main():
     ## @params: [JOB_NAME]
     df = spark.read.csv('s3://mybucketgithubactions/test3.csv', header = True)
-    df.repartition(1).write.mode('append').parquet("s3a://mybucketgithubactions/github_action2/publish/")
+    df.repartition(1).write.mode('append').parquet("s3a://mybucketgithubactions/github_action3/publish/")
 
 main()
