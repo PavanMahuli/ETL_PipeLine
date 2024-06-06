@@ -1,5 +1,9 @@
 name: glue_deployment
-on: [push]
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
 jobs:
   aws_cp:
     runs-on: ubuntu-latest
