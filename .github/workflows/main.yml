@@ -1,15 +1,24 @@
-name: second_github_action
+name: lambda_zip_test
 on: [push]
 jobs:
-  aws_cp:
+  lambda_demo:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: AKIAVRUVSF6E7XZB6MBW
-          aws-secret-access-key: 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
+          aws-access-key-id: AKIAVRUVSF6EYIODMMV4
+          aws-secret-access-key: 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
           aws-region: us-east-2
-      - name: Upload to s3
-        run: aws s3 cp ./Untitled.mp4 s3://s3githubactionsetl
+      -  name: Creating deployment zip
+         run: |
+          sudo apt install zip
+          mkdir -p ./deployment_zip 
+          pip install pandas -t ./deployment_zip
+          cp ./lambda_function.py  ./deployment_zip
+          cd deployment_zip 
+          zip -r lambda_zip.zip *
+      - name: lambda_code_update
+        run: |
+          aws lambda update-function-code --function-name GitHubActionsLambda --zip-file fileb://./deployment_zip/lambda_zip.zip
