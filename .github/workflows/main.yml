@@ -11,4 +11,4 @@ jobs:
           aws-secret-access-key: CZu78w5LBVslfl8COEsD129ccU2D12ziHIZF6Bow
           aws-region: us-east-2
       - name: Upload to s3
-        run: aws s3 cp ./README.md s3://s3githubactionsetl
+        run: aws s3 cp ./Untitled.mp4 s3://s3githubactionsetl
