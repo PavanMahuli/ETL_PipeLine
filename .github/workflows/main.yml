@@ -1,7 +1,7 @@
-name: lambda_zip_test
+name: glue_deployment
 on: [push]
 jobs:
-  lambda_demo:
+  aws_cp:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -11,14 +11,6 @@ jobs:
           aws-access-key-id: AKIAVRUVSF6EYIODMMV4
           aws-secret-access-key: 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
           aws-region: us-east-2
-      -  name: Creating deployment zip
-         run: |
-          sudo apt install zip
-          mkdir -p ./deployment_zip 
-          pip install pandas -t ./deployment_zip
-          cp ./lambda_function.py  ./deployment_zip
-          cd deployment_zip 
-          zip -r lambda_zip.zip *
-      - name: lambda_code_update
+      - name: Upload the Glue code to s3
         run: |
-          aws lambda update-function-code --function-name GitHubActionsLambda --zip-file fileb://./deployment_zip/lambda_zip.zip
+          aws s3 cp ./csv_to_parquet.py s3://aws-glue-assets-381492014985-us-east-2/scripts/
